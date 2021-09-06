@@ -5,23 +5,28 @@ let campoDeRiego = {
   Y: 0,
   diametro: 100,
 
+  // Distribuye los puntos de origen para la modulación en grilla y llama a la función que dibuja el sistema.
   loteo: function () {
     this.X -= this.diametro / 2;
     for (let i = 0; i < width / this.diametro; i++) {
-      this.Y = this.diametro / 2;
-      this.X += this.diametro;
-      lote.regar(this.X, this.Y, this.diametro);
-      noFill();
-      stroke(fondo);
-      strokeWeight(this.diametro / 40);
-      circle(this.X, this.Y, this.diametro);
-      for (let j = 0; j < height / this.diametro; j++) {
-        this.Y += this.diametro;
+      if (this.X < width - this.diametro) {
+        this.Y = this.diametro / 2;
+        this.X += this.diametro;
         lote.regar(this.X, this.Y, this.diametro);
         noFill();
         stroke(fondo);
         strokeWeight(this.diametro / 40);
         circle(this.X, this.Y, this.diametro);
+        for (let j = 0; j < height / this.diametro; j++) {
+          if (this.Y < height - this.diametro) {
+            this.Y += this.diametro;
+            lote.regar(this.X, this.Y, this.diametro);
+            noFill();
+            stroke(fondo);
+            strokeWeight(this.diametro / 40);
+            circle(this.X, this.Y, this.diametro);
+          }
+        }
       }
     }
     this.X = 0;
@@ -29,10 +34,10 @@ let campoDeRiego = {
   },
 };
 
+// Dibuja un módulo aleatorio entre tres posibilidades: círculo entero, dividido en dos al medio, o en hasta cuatro fracciones, variando el color.
 let lote = {
   regar: function (X, Y, diametro) {
     noStroke();
-    //let seed = Math.floor(Math.random() *)
     let verde = [26, 84, 25];
     let amarillo = [196, 180, 155];
     let marron = [80, 83, 56];
@@ -59,7 +64,6 @@ let lote = {
         arc(X, Y, diametro, diametro, angulo45[seed()], angulo45[seed()], PIE);
         fill(verde);
         arc(X, Y, diametro, diametro, angulo45[seed()], angulo45[seed()], PIE);
-        //arc(X, Y, diametro, diametro, HALF_PI, PI, PIE);
         break;
 
       case 1:
@@ -79,6 +83,7 @@ let lote = {
 };
 
 function setup() {
+  console.log(campoDeRiego.diametro);
   createCanvas(windowWidth, windowHeight);
   background(fondo);
 }
