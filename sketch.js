@@ -3,10 +3,11 @@ let fondo = [205, 199, 175];
 let campoDeRiego = {
   X: 0,
   Y: 0,
-  diametro: 100,
+  diametro: 0,
 
   // Distribuye los puntos de origen para la modulación en grilla y llama a la función que dibuja el sistema.
   loteo: function () {
+    this.diametro = Math.floor(random(50, 100));
     this.X -= this.diametro / 2;
     for (let i = 0; i < width / this.diametro; i++) {
       if (this.X < width - this.diametro) {
@@ -94,5 +95,7 @@ function draw() {
 }
 
 function mousePressed() {
+  background(fondo);
   campoDeRiego.loteo();
+  console.log(campoDeRiego .diametro);
 }
