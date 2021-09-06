@@ -7,7 +7,7 @@ let campoDeRiego = {
 
   // Distribuye los puntos de origen para la modulación en grilla y llama a la función que dibuja el sistema.
   loteo: function () {
-    this.diametro = Math.floor(random(50, 100));
+    this.diametro = Math.floor(random(20, 100));
     this.X -= this.diametro / 2;
     for (let i = 0; i < width / this.diametro; i++) {
       if (this.X < width - this.diametro) {
